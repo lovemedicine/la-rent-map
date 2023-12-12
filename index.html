@@ -17,7 +17,8 @@
 </style>
 </head>
 <body>
-<h3>Map of rents in Los Angeles</h3>
+<div><strong>Map of rents in Los Angeles</strong></div>
+<div>Point to a colored area to view the median rent in that area.</div>
 <div id="map"></div>
 <script>
 
@@ -73,6 +74,7 @@ for (let i = 0; i < rentData.length; i++) {
   const scale = rentToScale(feature.rent)
   const color = mapScaleToHeatColor(scale)
   const polygon = L.polygon(latlngs, {color, fillOpacity: 0.7, stroke: 0}).addTo(map)
+  polygon.bindTooltip(`Median rent: $${feature.rent}`)
 }
 
 </script>
