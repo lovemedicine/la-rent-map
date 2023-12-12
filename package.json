@@ -1,0 +1,15 @@
+{
+  "name": "la-rent-map",
+  "version": "1.0.0",
+  "description": "map of rents in los angeles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "matthew skomarovsky",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "csv": "^6.3.6"
+  }
+}
