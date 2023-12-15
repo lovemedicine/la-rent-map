@@ -17,6 +17,7 @@ http.createServer((request, response) => {
   const mimeTypes = {
     '.html': 'text/html',
     '.js': 'text/javascript',
+    '.css': 'text/css',
     // Add more MIME types here if needed
   };
 
