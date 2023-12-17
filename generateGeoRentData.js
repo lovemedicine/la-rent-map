@@ -2,11 +2,11 @@ import fs from 'fs'
 import { parse } from 'csv-parse'
 import { finished } from 'stream/promises'
 
-async function loadFeatures() {
+async function loadGeojson() {
   const filePath = './data/ca-block-group-2022.json'
   const data = await fs.promises.readFile(filePath, 'utf8')
   const json = await JSON.parse(data)
-  return json.features
+  return json
 }
 
 async function loadRents() {
@@ -24,10 +24,10 @@ async function loadRents() {
   return records
 }
 
-const data = await loadFeatures()
+let geojson = await loadGeojson()
 let features = {}
 
-for (let feature of data) {
+for (let feature of geojson.features) {
   const geoid = feature.properties.AFFGEOID
   features[geoid] = feature
 }
@@ -42,13 +42,16 @@ for (let row of rows.slice(2)) {
   if (features[geoid]) {
     rent = parseInt(rent.replace(',', '')) || null
     margin = parseInt(margin.replace(',', '')) || null
-    features[geoid] = { ...features[geoid], rent, margin, name }
+    let newFeature = { ...features[geoid] }
+    newFeature.properties =  { ...newFeature.properties, rent, margin, name }
+    features[geoid] = newFeature
     found++
   } else {
     notFound++
   }
 }
 
-const featuresWithRent = Object.values(features).filter(feature => feature.rent)
-await fs.promises.writeFile('./data/geoRentData.js', `const rentData = ${JSON.stringify(featuresWithRent)}`)
+const featuresWithRent = Object.values(features).filter(feature => feature.properties.rent)
+geojson.features = featuresWithRent
+await fs.promises.writeFile('./data/geoRentData.js', `const rentData = ${JSON.stringify(geojson)}`)
 

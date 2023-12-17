@@ -10,15 +10,14 @@ http.createServer((request, response) => {
     filePath = './index.html'
   }
 
-  let extname = String(path.extname(filePath)).toLowerCase()
+  const extname = String(path.extname(filePath)).toLowerCase()
   let contentType = 'text/html'
 
-  // Map extension to content type
   const mimeTypes = {
     '.html': 'text/html',
     '.js': 'text/javascript',
     '.css': 'text/css',
-    // Add more MIME types here if needed
+    '.geojson': 'application/geo+json'
   };
 
   contentType = mimeTypes[extname] || 'application/octet-stream'
