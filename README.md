@@ -1,6 +1,6 @@
 # la-rent-map
 
-A simple web page that displays a heat map of rents in Los Angeles using Leaflet.js and the latest census data.
+A simple web page that displays a heat map of rents in Los Angeles using Leaflet.js or Mapbox and the latest 5-year census data. You can view a demo of the Leaflet.js version at this [replit](https://replit.com/@matthewskomarov/la-rent-map).
 
 ## Instructions
 
